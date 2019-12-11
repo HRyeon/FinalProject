@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  XML 문서의 유효성 체크를 위해 필요한 부분 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+	<!-- 여기 오면 일단 결과를 돌려받을 resultMap부터 생성 -->
+	 
+	 <resultMap type="Reply" id="replyResultSet">
+		<id column="rNum" property="rNum" />
+		<result column="mNum" property="mNum" />
+		<result column="bNum" property="bNum" />
+		<result column="rContent" property="rContent" />
+		<result column="rDate" property="rDate" />		
+		<result column="rlevel" property="rLevel" />
+		<result column="ref_rNum" property="ref_rNum" /> 
+		<result column="mNick" property="mNick" /> 
+		<result column="mProfile" property="mProfile" /> 
+	</resultMap>
+	 
+	
+	
+	
+	<select id="getReplyCount" resultType="_int" parameterType="Integer">
+		 SELECT count(*) from reply where bnum = #{bNum}
+	</select>
+	
+	<select id="getReplyInfo" resultType="Reply" parameterType="Integer">
+		SELECT rnum,bnum,r.mnum,rcontent,rdate,rlevel,ref_rnum,m.mnick,m.mprofile from reply r join member m on (r.mnum=m.mnum) where bnum = #{bNum}
+		START WITH RLEVEL = 1
+		CONNECT BY PRIOR RNUM = REF_RNUM
+			 
+	</select>
+	
+	 
+	
+	
+	<insert id="replyInsert" parameterType="Reply">
+		insert into Reply values(REPLY_SEQ.NEXTVAL,#{bNum},#{mNum},#{rContent},sysdate,1,default) 
+<!-- 		insert into Reply values(REPLY_SEQ.NEXTVAL,#{bNum},#{mNum},#{rContent},sysdate,1,'NULL')  -->
+		</insert>
+	
+	<delete id="replyDelete" parameterType="int">DELETE FROM Reply WHERE RNUM = #{rNum} </delete>
+	<delete id="replyDeleteTogether" parameterType="int">DELETE FROM Reply WHERE ref_rnum = #{rNum} </delete>
+	
+	<insert id="replyInsert2" parameterType="Reply">
+      insert into Reply values(REPLY_SEQ.NEXTVAL,#{bNum},#{mNum},#{rContent},sysdate,2,#{ref_rNum}) 
+
+      </insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

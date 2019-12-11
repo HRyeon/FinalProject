@@ -1,0 +1,340 @@
+.content {
+    height: 1000px;
+}
+
+section .songbox {
+    width:1060px;
+    height: 180px;
+    /* display: block; */
+    margin: 0 auto;
+    padding: 20px;
+    background-color:#fff;
+    border-bottom: 2px solid #f2f2f2;
+}
+
+
+
+a {
+    text-decoration: none;
+}
+
+.song {
+    width:700px;
+    height: 187px;
+    /* padding: 20px; */
+    /* background-color:rgb(248, 219, 166); */
+    float: left;
+    position: relative;
+}
+
+.play_btn {
+    float: left;
+}
+
+.play_btn img {
+    width: 50px;
+    cursor: pointer;
+}
+
+
+.song_Title {
+    font-size: 20px;
+    color:#666;
+    /* margin-bottom: 5px; */
+    margin-left: 60px;
+    padding-top: 5px;
+    width:640px;
+}
+
+.song_singer {
+    margin-left: 60px;
+     width:640px;
+}
+
+.song_img {
+    width : 190px;
+    height: 190px;
+    /* background-color : rgb(248, 219, 166); */
+    float:right;
+    margin-right:150px;
+    overflow: hidden;
+}
+
+.song_img img {
+
+}
+
+/* .song audio {
+    height: 13px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+} */
+
+.like_btn {
+    position: absolute;
+    bottom: 0px;
+}
+
+.like_btn img {
+    width: 23px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+.like_count {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.song_btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.song_btn img {
+    width: 22px;
+    margin-right: 10px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+/* content */
+.pro_content {
+    width : 120px;
+    /* height: 200px; */
+    float: left;
+  
+    /* background-color: rgb(155, 155, 241); */
+}
+
+.pro_con_img {
+    width: 150px;
+    height: 150px;
+    border-radius: 80px;
+    overflow: hidden;
+}
+
+/* .pro_con_img img {
+    width: 150px;
+} */
+
+.pro_con_id {
+    width: 120px;
+    height: 15px;
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+}
+
+.pro_con_foll {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.pro_con_track {
+    /* float: right; */
+    margin-left: 65px;
+    margin-top: 5px;
+}
+
+.pro_con_foll img {
+    width: 12px;
+}
+
+.pro_con_track img {
+    width: 10px;
+}
+
+.pro_con_foll_num, .pro_con_track_num {
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.pro_follow {
+    /* font-weight: bold; */
+    width: 120px;
+    height: 15px;
+    text-align: center;
+    margin-top: 7px;
+}
+
+.pro_follow span {
+    border: 0.5px solid #999;
+    border-radius: 5px;
+    padding: 2px 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.pro_follow span:hover {
+    background-color: #666;
+    border: 1px solid #666;
+    color: #fff;
+}
+
+
+.con_content {
+    width:560px;
+    /* height: 200px; */
+    float: left;
+    padding-left: 20px;
+    /* background-color: rgb(252, 224, 173); */
+}
+
+.all_tag {
+    margin-top : 20px;
+    /* padding-bottom: 10px;
+    border-bottom: 1px solid #e7e7e7; */
+}
+
+.all_tag .tag {
+    display: inline-block;
+    background: rgb(190, 187, 187);
+    font-weight: 100;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 3px 7px 3px 7px;
+    font-size: 12px;
+    color: rgb(83, 83, 83);
+    margin-bottom: 5px;
+}
+
+.all_tag .tag:hover {
+    background: rgb(155, 153, 153);
+    color : #fff;
+}
+.post_content{
+	
+}
+.post_comment {
+    color: #666;
+      min-height:200px;
+    line-height: 140%;
+}
+
+.post_reply {
+    margin-top : 15px;
+}
+
+.post_reply input[type=text] {
+    width: 500px;
+}
+
+.post_reply input[type=submit] {
+    float: right;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.post_reply2 {
+    margin-top: 10px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #e7e7e7;
+}
+
+.post_reply2 img {
+    width: 13px;
+}
+
+.post_reply2_num {
+    font-size: 12px;
+    display: inline-block;
+}
+
+.reply, .ripple {
+    margin-top: 10px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.ripple {
+    padding-left: 20px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.reply a img, .ripple a img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    vertical-align: middle;
+}
+
+.ripple a img {
+    margin-left: 30px;
+}
+
+.ripple_arrow {
+    width: 20px;
+    /* margin-top: 5px; */
+    position: absolute;
+    top: 5px;
+}
+
+.reply_id {
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 7px;
+    color: #666;
+}
+
+.reply_ripple, .reply_delete {
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    /* top: 12px; */
+    cursor: pointer;
+    color: rgb(189, 189, 189);
+}
+
+.reply_ripple {
+    right: 30px;
+}
+
+.reply_ripple:hover, .reply_delete:hover {
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.deletebtn:hover{
+	 border-bottom: 1px solid #e4e4e4;
+	    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    /* top: 12px; */
+    cursor: pointer;
+    color: rgb(189, 189, 189);
+}
+
+.reply_comment {
+    font-size: 14px;
+    margin: 0 0 0 50px;
+    line-height: 140%;
+}
+
+.ripple_comment {
+    font-size: 14px;
+    margin: 0 0 0 80px;
+    line-height: 140%;
+    min-width : 440px;
+}
+
+
+.follow {
+	font-weight: bold;
+	border : none;
+	float : right;
+	margin-top : 18px;
+	cursor : pointer;
+	height : 18px;
+}
+
+.follow:hover {
+	border-bottom : 1px solid #333;
+}

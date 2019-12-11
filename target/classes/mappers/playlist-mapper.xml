@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  XML 문서의 유효성 체크를 위해 필요한 부분 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="playlistMapper">
+	<!-- 여기 오면 일단 결과를 돌려받을 resultMap부터 생성 -->
+	<resultMap id="playlistResultSet" type="Playlist">
+		<id column="PNUM" property="pNum"/>
+		<result column="PNAME" property="pName"/>
+		<result column="MNUM" property="mNum"/>
+	</resultMap>
+	
+	<resultMap type="PlayList" id="playlistRSet">
+		<result column="pNum" property="pNum"/>
+		<result column="pName" property="pName"/>
+		<result column="mNum" property="mNum"/>
+		<result column="pOrder" property="pOrder"/>
+		<result column="bNum" property="bNum"/>
+		<result column="bTitle" property="bTitle"/>
+		<result column="bFilename" property="bFilename"/>
+		<result column="mProfile" property="mProfile"/>
+	</resultMap>
+	
+	
+	
+	<select id="selectSearchList" resultMap="playlistResultSet">
+		SELECT P.*, M.MNICK
+		FROM PLAYLIST P
+		JOIN MEMBER M
+		ON P.MNUM=M.MNUM
+		WHERE PNAME LIKE '%'||#{ search }||'%'
+	</select>
+	
+	<select id="selectPlaylistBoardList" resultType="Board">
+		SELECT P.*,B.*
+		FROM PLAYLIST_BOARD PB
+		JOIN BOARD B
+		ON PB.BNUM=B.BNUM
+		JOIN PLAYLIST P
+		ON PB.PNUM=P.PNUM
+		WHERE PB.PNUM=#{ pNum }
+		ORDER BY PORDER
+	</select>
+	
+	<select id="selectplayList" parameterType="_int" resultMap="playlistRSet">
+		SELECT * FROM PLAYLIST P 
+		JOIN PLAYLIST_BOARD PB ON (P.PNUM = PB.PNUM)
+		JOIN BOARD B ON (PB.BNUM = B.BNUM) 
+        where p.mnum = #{mNum}
+        and pname = 'ppppp'
+		ORDER BY porder
+		</select> 
+		
+	<select id="getplayList" parameterType="_int" resultMap="playlistResultSet">
+		SELECT P.*, M.MNICK
+		FROM PLAYLIST P
+		JOIN MEMBER M
+		ON P.MNUM=M.MNUM
+		WHERE p.mnum = #{mNum} and not pname='ppppp'
+	</select>
+	<select id="getPNum" parameterType ="_int" resultType="_int">
+   	select pnum from playlist where pname ='ppppp' and mnum = #{mNum}
+   </select>
+	
+	<insert id="makeppppp" parameterType="_int">
+		insert into playlist values(playlist_seq.nextval, 'ppppp', #{mNum} )
+	
+	</insert>
+	
+	<insert id="addPlaylist" parameterType="Playlist">
+		insert into playlist values(Playlist_SEQ.NEXTVAL,#{pName},#{mNum}) 
+
+	</insert>
+	
+	<select id="playlistDetail" resultMap="playlistResultSet"
+		parameterType="_int">
+		
+		select *
+		from playlist p join member m on (m.mnum=p.mnum)
+		where pnum=#{pNum}
+
+	</select>
+	
+	<delete id="playlistDelete" parameterType="Playlist">
+		delete from playlist
+		where pnum=#{pNum}
+	
+	</delete>
+	
+	<select id="plistbyId" resultMap="playlistResultSet">
+		SELECT *
+		FROM PLAYLIST
+		WHERE MNUM = #{ mNum } and not pname='ppppp'
+	</select>
+	
+	<insert id="insertPlaylistBoard" parameterType="Playlist">
+      insert into playlist_board values(#{pNum},#{bNum},#{pOrder}) 
+   </insert>
+
+   <delete id="deletePlaylistBoard" parameterType="_int">
+      delete from playlist_board where pnum = #{pNum}
+   </delete>
+	
+	<delete id="deletePlaylist" parameterType="Playlist">
+   		delete from playlist_board where porder = #{pOrder} and pnum= #{pNum}
+   </delete>
+   
+   <update id="updatePlaylist" parameterType="_int">
+   		update playlist_board set pOrder = pOrder-1 where pOrder > #{wNum}
+   </update>
+	
+	<select id="getPlaylistBoard" parameterType="_int" resultMap="playlistRSet">
+		select * from playlist_board where pnum = #{pNum}
+	</select>
+	<select id="checkpname" parameterType="Playlist" resultMap="playlistRSet">
+		select * from PLAYLIST where mNum = #{mNum} and pName = #{pName}
+	</select>
+	
+</mapper>

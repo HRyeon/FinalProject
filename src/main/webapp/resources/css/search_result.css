@@ -1,0 +1,490 @@
+body {
+    margin: 0 auto;
+}
+
+section {
+    width: 1100px;
+    margin: 0 auto;
+    height: 2000px;
+    padding: 50px;
+}
+
+ul {
+    list-style: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+.total-wrapper {
+    padding-top: 80px;
+    height: 100%;
+    width: 100%;
+}
+
+.search-result {
+    width: 1100px;
+    height: 80px;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+    border-bottom: 1px solid gainsboro;
+}
+
+#search-text {
+    margin-top: 30px;
+    padding-bottom: 10px;
+    
+    /* position:fixed; */
+}
+
+#search-text p {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(70, 68, 68)
+}
+
+/* tab을 감싸는 div */
+.tab-wrapper {
+    float: left;
+    width: 219px;
+    /* border-right: 1px solid gainsboro; */
+    /* height: 100%; */
+    /* background-color: blueviolet; */
+    text-align: center;
+    margin-top: 30px;
+    position:fixed;
+    z-index: 1;
+}
+
+/* tab */
+.tab-wrapper .tab-menu {
+    list-style: none;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.tab-menu li {
+    text-align: left;
+    /* padding-left: 20px; */
+    height: 40px;
+}
+
+.tab-menu img {
+    width: 20px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.tab-menu li p {
+    width: 195px;
+    /* padding-left: 20px; */
+    /* height: 40px; */
+    /* vertical-align: middle; */
+    padding-top: 10px;
+}
+
+/*  */
+.content-wrapper {
+    width: 880px;
+    height: 100%;
+    display: block;
+    border-left: 1px solid gainsboro;
+    /* background-color: green; */
+    float: right;
+}
+
+.tab-item {
+    width: 100%;
+    height: 40px;
+}
+
+ul.tab-menu li {
+    background-color: white;
+}
+
+ul.tab-menu li:hover, ul.tab-menu li.current {
+    background-color: rgb(240, 240, 22);
+    /* border:1px solid gainsboro; */
+}
+
+.tab-content {
+    display: none;
+    /* width: 80%; */
+    height: 100%;
+}
+
+.content-wrapper .current {
+    display: inherit;
+    /* background-color: aqua; */
+}
+
+.tab-content {
+    margin: 0 30px 30px 30px;
+}
+
+
+/* tab1-track */
+.track-wrapper {
+    width: 100%;
+    height: 180px;
+    padding-top: 30px;
+    /* background-color: brown; */
+    border-bottom: 1px solid gainsboro;
+    /* border: 1px solid gainsboro; */
+}
+
+.img-wrapper {
+    width: 150px;
+    height: 150px;
+    float: left;
+    border: 1px solid gainsboro;
+}
+
+.img-wrapper img {
+    width: 150px;
+    height: 150px;
+}
+
+.sound-content {
+    width: 650px;
+    height: 100%;
+    float: right;
+    margin-left: 10px;
+}
+
+.sound-wrapper {
+    width: 100%;
+    height: 45px;
+}
+
+.title-wrapper {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.title-wrapper img {
+    width: 45px;
+    height: 45px;
+}
+
+.play-wrapper {
+    float: left;
+}
+
+.user-wrapper {
+    float: left;
+    /* margin-left: 10px; */
+    width: 605px;
+    height: 45px;
+    /* background-color: antiquewhite; */
+}
+
+.user-wrapper a, .uploader-name a {
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+}
+
+.user-wrapper a:hover, .uploader-name a:hover {
+    text-decoration: none;
+    color: blueviolet;
+}
+
+.user-wrapper p {
+    width: 100px;
+    float: right;
+    text-align: right;
+}
+
+.uploader-name {
+    width: 100%;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.tag-wrapper {
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.tag-wrapper .tag {
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    background: rgb(190, 187, 187);
+    font-weight: 100;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 3px 7px 3px 7px;
+    font-size: 12px;
+}
+
+.tag-wrapper .tag:hover {
+    background: rgb(155, 153, 153);
+}
+
+.track-footer-left img {
+    width: 28px;
+    margin-right: 5px;
+}
+
+.track-footer-left {
+    display: inline-block;
+}
+
+.track-footer-right {
+    float: right;
+    color:rgb(110, 109, 109);
+}
+
+.track-status li {
+    float: right;
+}
+
+.people-status li {
+    float: left;
+}
+
+.track-status li img, .people-status li img {
+    width: 20px;    
+}
+
+/* .track-status .like-li {
+    margin-left: 10px;
+} */
+
+.like-li {
+    margin-left: 10px;
+}
+
+/* tab2-people */
+.people-wrapper {
+    width: 100%;
+    height: 150px;
+    padding-top: 30px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.people-img-wrapper {
+    width: 130px;
+    height: 130px;
+    float: left;
+}
+
+.people-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 65px;
+}
+
+.people-info-wrapper {
+    width: 650px;
+    height: 100%;
+    float: right;
+}
+
+.people-mini-li {
+    width: 100%;
+    margin-top: 10px;
+    float: left;
+}
+
+.follower-li {
+    margin-right: 10px;
+}
+
+.people-info-wrapper .user-name {
+    margin-top: 20px;
+}
+
+.people-info-wrapper .user-name p {
+    font-size: 15px;
+}
+
+.follow-btn-wrapper {
+    width: 100%;
+    height: 30px;
+    float: left;
+    margin-top: 13px;
+}
+
+.follow-btn {
+    /* width: 50px; */
+    background-color: rgb(248, 244, 244);
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 2px 10px;
+}
+
+.follow-btn:hover {
+    background-color: gainsboro;
+}
+
+/* tab4 */
+
+.plist-wrapper {
+    padding-top: 30px;
+    height: 120px;
+    border-bottom: 1px solid gainsboro;
+    padding-bottom: 30px;
+}
+
+.plist-img-wrapper {
+    float: left;
+}
+
+.plist-img-wrapper img {
+    width: 120px;
+    height: 120px;
+}
+
+.plist-right-wrapper {
+    float: right;
+    width: 670px;
+    /* margin-left: 10px; */
+}
+
+.plist-info-wrapper {
+    float: left;
+}
+
+.plist-top3-wrapper {
+    float: left;
+}
+
+.plist-play-img {
+    display: inline-block;
+    /* margin-top: 2px; */
+}
+
+.plist-play-img img {
+    width: 15px;
+    
+}
+
+.plist-top3-wrapper {
+    width: 200px;
+    float: right;
+}
+
+.plist-music-name-wrapper {
+    /* float: right; */
+    display: inline-block;
+    width: 80px;
+    /* margin-left: 20px; */
+}
+
+.plist-artist-wrapper {
+    /* float: right; */
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.plist-playall-btn-wrapper {
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.plist-playall-btn {
+    border: 1px solid gainsboro;
+    background-color: rgb(241, 237, 237);
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.plist-right-wrapper {
+    height: 100%;
+}
+
+.plist-top3-wrapper {
+    height: 100%;
+    border-left: 1px solid gainsboro;
+    padding-left: 20px;
+}
+
+.plist-top3-wrapper li {
+    padding-bottom: 10px;
+}
+
+.plist-name-wrapper {
+    padding-bottom: 20px;
+    padding-top: 10px;
+    /* font-size: 18px; */
+}
+
+.plist-name-wrapper a {
+    font-size: 16px;
+}
+
+.uploader-name-wrapper {
+    padding-bottom: 10px;
+}
+
+.uploader-name-wrapper a {
+    color: gray;
+}
+
+/* tab3 */
+.tab3-tag-wrapper {
+    width: 100%;
+    height: 100px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid gainsboro;
+    /* padding-bottom: 30px; */
+}
+
+.tab3-tag {
+    margin-bottom: 10px;
+}
+
+.tag-wrapper-title p {
+    font-size: 18px;
+    /* font-weight: bold; */
+    color: rgb(90, 88, 88);
+}
+
+.tab3-tag-wrapper .tag-wrapper {
+    padding-top: 15px;
+    /* border-bottom: 1px solid gainsboro; */
+}
+
+/*****************플레이어******************/
+#player-frame {
+    position: fixed;
+    bottom:0;
+    left:0;
+
+    /* width:100%; 
+    height:100px;
+    frameborder:0;
+    scrolling:no; */
+}
+
+#tab1 .track-footer-left img {
+	cursor: pointer;
+}
+
+
+/* ************ 레이어 팝업 *********** */

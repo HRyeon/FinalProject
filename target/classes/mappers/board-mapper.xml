@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+	<resultMap type="Board" id="boardResultSet">
+		<id column="bNum" property="bNum" />
+		<result column="bContent" property="bContent" />
+		<result column="bDate" property="bDate" />
+		<result column="bTitle" property="bTitle" />
+		<result column="bImgName" property="bImgName" />
+		<result column="bFileName" property="bFileName" />
+		<result column="bStatus" property="bStatus" />
+		<result column="mNum" property="mNum" />
+		<result column="mNick" property="mNick" />
+		<result column="mProfile" property="mProfile" />
+	</resultMap>
+
+
+	<select id="getSearchListCount" resultType="_int">
+		select count(*)
+		from
+		board
+		where bstatus = 'Y'
+	</select>
+
+	<select id="selectSearchList" resultMap="boardResultSet">
+		SELECT B.*, M.MNICK, MPROFILE
+		FROM BOARD B
+		JOIN MEMBER M
+		ON B.MNUM =
+		M.MNUM
+		WHERE BSTATUS = 'Y'
+		AND BTITLE LIKE '%'||#{ search }||'%'
+		OR
+		BARTIST LIKE '%'||#{ search }||'%'
+		<!-- order by bnum desc -->
+	</select>
+
+
+
+	<select id="selectBoardTagList" resultType="string">
+		SELECT TNAME
+		FROM
+		TAGBOARD
+		WHERE BNUM = #{ getbNum }
+	</select>
+
+	<select id="selectTagSearchList" resultType="string">
+		SELECT DISTINCT
+		TNAME
+		FROM TAGBOARD
+		WHERE TNAME LIKE '%'||#{ search }||'%'
+	</select>
+
+	<select id="selectTagBoardList" resultMap="boardResultSet">
+		SELECT B.*, M.MNICK,
+		MPROFILE
+		FROM BOARD B
+		JOIN TAGBOARD T
+		ON B.BNUM = T.BNUM
+		JOIN MEMBER M
+		ON
+		B.MNUM = M.MNUM
+		WHERE BSTATUS = 'Y'
+		AND T.TNAME = #{ search }
+	</select>
+
+
+	<!-- 10.16 -->
+	<select id="getTrackCount" resultType="_int"
+		parameterType="Integer">
+		SELECT count(*) from board where mnum = #{mNum} and
+		bstatus='Y'
+	</select>
+
+	<select id="getBoardLikeCount" resultType="_int"
+		parameterType="Integer">
+		SELECT count(*) from love where bnum = #{bNum}
+	</select>
+
+
+	<select id="getLikeCount" resultType="_int"
+		parameterType="Integer">
+		SELECT count(*) from love l join board b on
+		(l.bnum=b.bnum) where l.mnum = #{mNum} and b.bstatus='Y'
+	</select>
+
+	<select id="getLikedCount" resultType="_int"
+		parameterType="Integer">
+		SELECT count(*)
+		from love l
+		join board b on
+		(l.bnum=b.bnum)
+		where b.mnum = #{mNum} and b.bstatus='Y'
+	</select>
+
+	<select id="getBoardLikeList" resultMap="boardResultSet"
+		parameterType="_int">
+		select
+		b.bnum,b.mnum,b.bcontent,b.bdate,b.bartist,b.btitle,b.bimgname,b.bfilename,b.bstatus,m.mnick,b.mnum,m.mprofile
+		from board b
+		join love l on (b.bnum=l.bnum)
+		join member m on
+		(b.mnum=m.mnum)
+		where l.mnum=#{MNum} and b.bstatus='Y'
+	</select>
+
+	<!-- mainfeed -->
+	<select id="feedList" resultMap="boardResultSet"
+		parameterType="_int">
+		select distinct b.bnum,
+		b.mnum,bcontent,bdate,bartist,btitle,bimgname,bfilename,bstatus,m.mid,m.mnick,mprofile
+		from board b
+		join member m on (b.mnum =m.mnum)
+		left outer join follow f on (followed= b.mnum)
+		where (b.mnum = #{mNum} or following = #{mNum}) and b.bstatus='Y'
+		order by bdate desc
+	</select>
+
+	<select id="getFeedLikeCount" resultType="_int"
+		parameterType="_int">
+		select count(*)
+		from love
+		where bNum = #{bNum}
+	</select>
+
+	<select id="getFeedReplyCount" resultType="_int"
+		parameterType="_int">
+		select count(*)
+		from reply
+		where bNum = #{bNum}
+	</select>
+
+	<!-- mypage feed 1,2 -->
+	<select id="getAllMyList" resultMap="boardResultSet"
+		parameterType="_int">
+		select *
+		from board b
+		join member m on (b.mnum=m.mnum)
+		where b.mnum=#{mNum} and b.bstatus='Y'
+		order by bdate desc
+	</select>
+
+	<select id="getAllLikeList" resultMap="boardResultSet"
+		parameterType="_int">
+		select
+		b.mnum,mProfile,mNick,b.bNum,bImgName,bTitle,bArtist,bContent
+		from love
+		l
+		join board b on (b.bnum=l.bnum)
+		join
+		member m on (b.mnum=m.mnum)
+		where
+		l.mnum = #{mNum}
+		and b.bstatus='Y'
+	</select>
+
+	<!-- feedDetail 게시물 상세페이지 -->
+	<select id="feedDetail" resultMap="boardResultSet"
+		parameterType="_int">
+
+		select *
+		from board b join member m on (m.mnum=b.mnum)
+		where bnum=#{bNum}
+
+	</select>
+
+	<insert id="boardWrite" parameterType="Board">
+
+		insert into board
+		values(BOARD_SEQ.NEXTVAL,#{mNum},#{bContent},
+		sysdate,#{bArtist},#{bTitle},#{bImgName},#{bFileName},default)
+	</insert>
+
+	<!-- 좋아요 관련 -->
+	<insert id="insertLike" parameterType="Love">
+		INSERT INTO LOVE
+		VALUES(#{mNum}, #{bNum}, SYSDATE)
+	</insert>
+
+	<delete id="deleteLike" parameterType="Love">
+		DELETE FROM LOVE
+		WHERE
+		BNUM=#{bNum}
+		AND MNUM=#{mNum}
+	</delete>
+
+	<select id="myLoveblist" resultType="_int">
+		SELECT BNUM
+		FROM LOVE
+		WHERE
+		MNUM=#{sessionId}
+	</select>
+
+
+	<update id="boardDelete" parameterType="_int">
+		update board set
+		bstatus =
+		'N'
+		where bnum = #{bNum}
+	</update>
+
+	<insert id="insertTag">
+		INSERT INTO TAGBOARD(BNUM,TNAME)
+		SELECT
+		BOARD_SEQ.CURRVAL ,#{tName}
+		FROM USER_SEQUENCES
+		WHERE SEQUENCE_NAME='BOARD_SEQ'
+	</insert>
+
+	<select id="bestList" resultMap="boardResultSet">
+		SELECT M.MNUM, M.MNICK,
+		M.MPROFILE, COUNT(L.BNUM) LCOUNT, B.BNUM, B.BCONTENT, B.BARTIST,
+		B.BTITLE, B.BIMGNAME, B.BFILENAME
+		FROM MEMBER M JOIN BOARD B ON M.MNUM
+		= B.MNUM
+		JOIN LOVE L ON L.BNUM = B.BNUM
+		GROUP BY M.MNUM, M.MNICK,
+		M.MPROFILE, L.BNUM, B.BNUM, B.BCONTENT, B.BARTIST, B.BTITLE,
+		B.BIMGNAME, B.BFILENAME
+		ORDER BY COUNT(L.BNUM) DESC
+	</select>
+
+	<insert id="insertLoveAlarm" parameterType="Alarm">
+		INSERT INTO ALARM
+		VALUES(ALARM_SEQ.NEXTVAL, #{mNum}, #{target_mNum}, #{aType}, #{bNum},
+		#{aUrl}, SYSDATE, DEFAULT)
+	</insert>
+
+	<insert id="insertFollowAlarm" parameterType="Alarm">
+		INSERT INTO ALARM
+		VALUES(ALARM_SEQ.NEXTVAL, #{mNum}, #{target_mNum}, #{aType}, 0,
+		#{aUrl}, SYSDATE, DEFAULT)
+	</insert>
+
+	<select id="alarmList" resultType="Alarm" parameterType="_int">
+		SELECT
+		A.*, M.MNICK, M.MPROFILE
+		FROM ALARM A JOIN MEMBER M ON (A.TARGET_MNUM =
+		M.MNUM)
+		WHERE A.MNUM = #{mNum}
+		AND NOT A.TARGET_MNUM = #{mNum}
+		ORDER BY
+		A.ANUM DESC
+	</select>
+
+	<update id="updateAlarm" parameterType="_int">
+		UPDATE ALARM SET
+		ASTATUS = 'Y'
+		WHERE ANUM = #{aNum}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+

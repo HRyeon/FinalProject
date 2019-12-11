@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 고딕;
+    font-size: 15px;
+    color: #999;
+}
+
+header {
+    width : 100%;
+    height : 50px;
+    background-color : #333333;
+    position : fixed;
+    z-index : 1;
+}
+
+header #head {
+    width: 1100px;
+    height: 50px;
+    margin: 0 auto;
+    position : relative;
+    /* background-color: orange; */
+}
+
+#head ul {
+    /* margin-left: 150px; */
+    float: right;
+    margin-top : 13px;
+}
+
+#head li {
+    list-style: none;
+    float: left;
+    font-size: 15px;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+#head li input[type=search] {
+    width: 400px;
+}
+
+#head li img {
+    width: 15px;
+}
+
+#head li a {
+	text-decoration: none; 
+}
+
+#head li span {
+    background-color: red;
+    color: #fff;
+    font-weight: bold;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    right: 225px;
+    font-size: 12px;
+}
+
+#head .head_on:hover {
+	color : #fff;
+}
+
+#alarm {
+    width: 430px;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid #999;
+    z-index: 3;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    display:none;
+}
+
+.alarmList {
+    /* width: 430px; */
+    padding: 10px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    cursor: pointer;
+}
+
+.alarmList:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+.alarmList img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.alarmList p {
+    /* float: left; */
+    display: inline-block;
+    font-size: 14px;
+    color: #666;
+}
+
+.alarmList2 {
+	background-color : rgb(243, 243, 243);
+}
+
+::-webkit-scrollbar { 
+    display: none !important;
+     }

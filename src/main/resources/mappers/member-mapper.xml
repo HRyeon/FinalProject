@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  XML 문서의 유효성 체크를 위해 필요한 부분 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<!-- 여기 오면 일단 결과를 돌려받을 resultMap부터 생성 -->
+	
+	<resultMap id="memberResultSet" type="Member">
+		<id column="MNUM" property="mNum"/>
+		<result column="MID" property="mId"/>
+		<result column="MNICK" property="mNick"/>
+		<result column="MPROFILE" property="mProfile"/>
+	</resultMap>
+	
+	<resultMap id="followResultSet" type="Follow">
+		<id column="FOLLOWING" property="following"/>
+		<id column="FOLLOWED" property="followed"/>
+		<result column="FDATE" property="fdate"/>
+	</resultMap>
+	
+	<select id="selectSearchList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MNICK LIKE '%'||#{ search }||'%'
+	</select>
+	
+	<select id="getMemberInfo" resultMap="memberResultSet" parameterType="_int">
+		SELECT *
+		FROM MEMBER	WHERE MNum = #{mNum}   
+	</select>	
+	
+	
+	<select id="getFollowingList" resultMap="memberResultSet" parameterType="_int">
+		select m.mnum,m.mid,m.mnick,m.mprofile 
+		from member m 
+		join (SELECT * 
+			  FROM MEMBER 
+			  join Follow on (MNum = following) 
+			  where mNum = #{mNum}) temp 
+		on (m.mnum=temp.followed)
+	</select>	
+	
+	<select id="getFollowerList" resultMap="memberResultSet" parameterType="_int">
+		select m.mnum,m.mid,m.mnick,m.mprofile 
+		from member m 
+		join (SELECT * FROM MEMBER 
+			  join Follow 
+			  on (MNum = followed) 
+			  where mNum = #{mNum}) temp 
+		on (m.mnum=temp.following)
+	</select>	
+	 
+	
+	<select id="getFollowerCount" resultType="_int" parameterType="Integer">
+		SELECT count(*) 
+		from follow 
+		where followed = #{mNum}
+	</select>
+		
+	<select id="getFollowingCount" resultType="_int" parameterType="Integer">
+		SELECT count(*) 
+		from follow 
+		where following = #{mNum}
+	</select>	 
+	
+<!-- 	<insert id="insertMember" parameterType="Member"> -->
+<!-- 		INSERT INTO MEMBER  -->
+<!-- 		VALUES(SEQ_MID.NEXTVAL, #{ userId }, #{ userPwd }, -->
+<!-- 		                         #{ userName }, #{ email }, #{ birthDay },  -->
+<!-- 		                         #{ gender }, #{ phone }, #{ address },  -->
+<!-- 		                         SYSDATE, SYSDATE, DEFAULT) -->
+<!-- 	</insert> -->
+	
+<!-- 	<select id="selectPwd" parameterType="string" resultType="string"> -->
+<!-- 		select user_pwd -->
+<!-- 		from member  -->
+<!-- 		where user_id = #{userId} -->
+<!-- 			  and status='Y' -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectLoginUser" parameterType="Member" resultMap="memberResultSet"> -->
+<!-- 		select * -->
+<!-- 		from member -->
+<!-- 		where user_id=#{userId} and status='Y' -->
+<!-- 	</select> -->
+	
+	
+	<insert id="inputInfo" parameterType="Member">
+		insert into member values(#{mNum},#{mId},#{mNick},#{mProfile},SYSDATE)
+	</insert>
+	
+	 <update id="updateInfo" parameterType ="Member">
+	 	 
+	 	
+	 	update member
+	 	set
+	 	mid= #{mId},
+	 	mNick= #{mNick},
+	 	mProfile= #{mProfile}
+	 	where mNum = #{mNum}
+	 
+	 </update>
+	
+	<insert id="addfollow" parameterType="Follow"  >
+		insert into follow values(#{following},#{followed},SYSDATE)
+	</insert>
+	
+	<select id="followCheck" parameterType="Follow" resultType="_int">
+		select count(*) from follow where following = #{following} and followed = #{followed}
+	</select>
+	
+	<delete id="deletefollow" parameterType="Follow">
+		delete from follow where following = #{following} and followed=#{followed}
+	</delete>
+	
+	<select id="selectAmem" resultType="_int">
+		SELECT MNUM
+		FROM BOARD
+		WHERE BNUM = #{ bNum }
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>

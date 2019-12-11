@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 데이터 베이스 접속에 관련된 클래스들을 bean으로 등록 -->	
+	
+	<!-- sqlSessionTemplate 등록 -->
+	<!-- JDBCTemplate와 같은 클래스로 생각하면 된다.(우리가 작성하지 않아도 된다) -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<!-- 이 객체를 생성할 때 sqlSession 객체를 인자로 넘겨 생성하세요 
+			  의존성 주입 중에서 생성자를 통한 의존성 주입이다.
+		-->
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 위에 인자로 넘긴 sqlSession도 마찬가지로 bean으로 등록해줘야 한다. -->
+	<!-- sqlSession은 sqlSessionFactory로 생성한다. -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 이 객체를 생성하고 setter를 통해 값을 넣어주라는 의미 -->
+		<!-- 의존성 주입 중에 setter를 통한 의존성 주입 -->
+		<!-- 속성의 이름이 클래스의 필드 -->
+		<!-- 첫 번째 속성의 값은 마이바티스 설정 파일의 경로를 지정해준다 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- dataSource 객체도 bean으로 등록해야 sqlSessionFactory 객체 생성시 넘겨줄 수 있다. -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+		<property name="username" value="TIKITA"/>
+		<property name="password" value="TIKITA"/>
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	
+		
+</beans>
